@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autoškola Šajer - Řidičák není právo. Je to boj o život.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ========== ZÁKLADNÍ NASTAVENÍ A PROMĚNNÉ ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #0f1827;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-pink: #ec4899;
+            --text-primary: #1f2937;
+            --text-secondary: #4b5563;
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --shadow: 0 8px 32px rgba(31, 41, 55, 0.1);
+            --shadow-hover: 0 20px 50px rgba(59, 130, 246, 0.25);
+            --radius: 24px;
+            --radius-sm: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-primary: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            --gradient-bg: linear-gradient(135deg, #f0f4f8 0%, #d9e7f7 50%, #e7d5f5 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gradient-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ========== HEADER ========== */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 15px;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--accent-blue);
+        }
+
+        /* ========== BUTTONS ========== */
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+        }
+
+        .btn-crisis {
+            padding: 10px 24px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        .btn-primary {
+            padding: 18px 40px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.5);
+        }
+
+        .btn-instagram {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(220, 39, 67, 0.3);
+            transition: var(--transition);
+        }
+
+        .btn-instagram:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.1);
+        }
+
+        /* ========== HERO SEKCE ========== */
+        .hero {
+            padding: 140px 20px 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 5vw, 72px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(to right, #1f2937, #4b5563);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(18px, 2vw, 22px);
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .counter {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            color: var(--accent-pink);
+            margin-bottom: 40px;
+            border: 1px solid rgba(236, 72, 153, 0.2);
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.1);
+        }
+
+        /* ========== GRID LAYOUTS ========== */
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 40px;
+            font-weight: 800;
+            margin-bottom: 60px;
+            color: var(--primary-dark);
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* ========== KARTY ========== */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid white;
+            border-radius: var(--radius);
+            padding: 40px;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Testimonials specific */
+        .testimonial-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 3px solid var(--accent-blue);
+        }
+
+        .stars { color: #fbbf24; margin-top: 15px; }
+
+        /* Pricing specific */
+        .price {
+            font-size: 48px;
+            font-weight: 800;
+            margin: 20px 0;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .features-list {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        
+        .features-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            color: var(--text-secondary);
+        }
+
+        .btn-plan {
+            width: 100%;
+            padding: 15px;
+            border-radius: 15px;
+            font-weight: 600;
+            background: #fff;
+            color: var(--text-primary);
+            border: 1px solid #e5e7eb;
+            transition: var(--transition);
+        }
+
+        .btn-plan:hover {
+            background: var(--primary-dark);
+            color: white;
+        }
+
+        /* ========== FORMULÁŘ ========== */
+        .contact-section {
+            background: white;
+            border-radius: 40px;
+            padding: 60px;
+            box-shadow: var(--shadow);
+            margin-top: 60px;
+        }
+
+        .form-group { margin-bottom: 25px; }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+            font-family: inherit;
+            font-size: 16px;
+            transition: var(--transition);
+            background: #f9fafb;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-message {
+            display: none;
+            padding: 20px;
+            background: #d1fae5;
+            color: #065f46;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* ========== COOKIE BANNER ========== */
+        .cookie-banner {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 350px;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(20px);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            z-index: 2000;
+            animation: slideIn 0.5s ease;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .cookie-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-cookie {
+            flex: 1;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .btn-accept { background: var(--primary-dark); color: white; }
+        .btn-deny { background: #f3f4f6; color: var(--text-primary); }
+
+        .btn-close-cookie {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            font-size: 20px;
+            color: #9ca3af;
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+            border-top: 1px solid rgba(0,0,0,0.05);
+            background: white;
+            margin-top: 80px;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 20px; padding: 20px; }
+            nav { width: 100%; justify-content: center; }
+            .hero h1 { font-size: 36px; }
+            .cookie-banner { width: calc(100% - 40px); bottom: 20px; right: 20px; }
+            .contact-section { padding: 30px; }
+        }
+
+        @keyframes slideIn { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Šajer</div>
+        <nav>
+            <a href="#testimonials">Přeživší</a>
+            <a href="#pricing">Ceník</a>
+            <a href="#contact">Rezervovat</a>
+        </nav>
+        <button class="btn-crisis" onclick="alert('Krizová linka: +420 666 CRASH-99 (Obsazeno)')">Krizová linka</button>
+    </header>
+
+    <section class="hero">
+        <h1>Řidičák není právo.<br>Je to boj o život.</h1>
+        <p class="hero-subtitle">První autoškola, kde se airbagy otevírají náhodně, abyste byli stále ve střehu. Připravujeme řidiče na situace, které zákon nezná.</p>
+        
+        <div class="counter">
+            Dní bez nehody našich instruktorů: <span id="counter-number" style="font-size: 1.2em; font-weight:800; margin-left: 8px;">0</span>
+        </div>
+        <br>
+        <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView()">Chci podepsat závěť a začít</button>
+    </section>
+
+    <section id="testimonials">
+        <h2>Co o nás říkají (ti, co přežili)</h2>
+        <div class="grid-3">
+            <div class="glass-card">
+                <img src="https://placehold.co/100x100?text=Jana" alt="Jana" class="testimonial-img">
+                <p><i>"Pan Šajer mě naučil, že červená na semaforu je jen doporučení vnímané srdcem. Policie to viděla jinak, ale ten pocit svobody!"</i></p>
+                <div class="stars">★★★★★</div>
+                <p><strong>- Jana, nyní chodkyně</strong></p>
+            </div>
+            <div class="glass-card">
+                <img src="https://placehold.co/100x100?text=Petr" alt="Petr" class="testimonial-img">
+                <p><i>"Instruktor celou dobu křičel a plakal zároveň. Velmi intenzivní emocionální zážitek, který v jiné autoškole nenajdete."</i></p>
+                <div class="stars">★★★★☆</div>
+                <p><strong>- Petr, v podmínce</strong></p>
+            </div>
+            <div class="glass-card">
+                <img src="https://placehold.co/100x100?text=Lukas" alt="Lukas" class="testimonial-img">
+                <p><i>"Auto nemělo podlahu, ale aspoň jsem se cítil propojený s vozovkou. Doslova. Mám silniční lišej na kotnících."</i></p>
+                <div class="stars">★★★★★</div>
+                <p><strong>- Lukáš, ortopedie</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <section style="text-align: center; padding: 60px 20px;">
+        <h2>Galerie našich selhání</h2>
+        <p style="margin-bottom: 30px; color: var(--text-secondary);">Sledujte naše nejlepší totálky online.</p>
+        <a href="https://www.instagram.com/autoskola_sajer/" target="_blank" class="btn-instagram">
+            <span>📸</span> Navštívit @autoskola_sajer
+        </a>
+    </section>
+
+    <section id="pricing">
+        <h2>Tarifní plány</h2>
+        <div class="grid-3">
+            <div class="glass-card">
+                <h3>Kamikadze</h3>
+                <div class="price">4 999 Kč</div>
+                <ul class="features-list">
+                    <li>✓ Jízda bez pásů</li>
+                    <li>✓ Teorie útěku od nehody</li>
+                    <li>✓ Kurz "Jak vysvětlit pojišťovně"</li>
+                    <li>✓ Volant (nepřipojený)</li>
+                </ul>
+                <button class="btn-plan">Zvolit smrt</button>
+            </div>
+            <div class="glass-card" style="border-color: var(--accent-blue); transform: scale(1.05);">
+                <div style="color: var(--accent-blue); font-weight: bold; margin-bottom: 10px;">NEJPRODÁVANĚJŠÍ</div>
+                <h3>Standard</h3>
+                <div class="price">12 999 Kč</div>
+                <ul class="features-list">
+                    <li>✓ Volant se opravdu hýbá</li>
+                    <li>✓ Brzdy (fungují v liché dny)</li>
+                    <li>✓ Pojistka (prošlá)</li>
+                    <li>✓ Instruktor bez kocoviny</li>
+                </ul>
+                <button class="btn-primary" style="width: 100%; font-size: 16px;">Zvolit naději</button>
+            </div>
+            <div class="glass-card">
+                <h3>VIP</h3>
+                <div class="price">24 999 Kč</div>
+                <ul class="features-list">
+                    <li>✓ Láhev rumu na kuráž</li>
+                    <li>✓ Právník na telefonu 24/7</li>
+                    <li>✓ Airbag (zaručeně funkční)</li>
+                    <li>✓ Vlastní helma</li>
+                </ul>
+                <button class="btn-plan">Zvolit luxus</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-section">
+            <h2>Rezervace termínu nehody</h2>
+            <div class="form-message" id="formMessage">✓ Děkujeme! Instrukce vám přijdou v nejbližší možné chvíli (pokud vůbec).</div>
+            
+            <form id="contactForm">
+                <div class="grid-3" style="grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label for="name">Jméno (pokud si ho pamatujete)</label>
+                        <input type="text" id="name" required placeholder="Jan Novák">
+                    </div>
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required placeholder="jan@nemocnice.cz">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="injury">Druh preferovaného zranění</label>
+                    <select id="injury" required>
+                        <option value="">-- Vyberte, co snesete --</option>
+                        <option value="zlomeny-loket">Zlomený loket (klasika)</option>
+                        <option value="sok">Psychický šok (v ceně kurzu)</option>
+                        <option value="whiplash">Opěrka krční páteře (náraz zezadu)</option>
+                        <option value="nevim">Ještě nevím, překvapte mě</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Zpráva pro instruktora (např. krevní skupina)</label>
+                    <textarea rows="4" placeholder="Moje krevní skupina je A+, prosím nejezděte kolem hřbitova, bojím se..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary" style="width: 100%;">Odeslat přihlášku</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <h3 style="margin-bottom: 10px; color: var(--primary-dark);">Autoškola Šajer</h3>
+        <p>📍 Najdete nás v příkopě u silnice č. 3</p>
+        <p>📧 zije@vrakovi.ste</p>
+        <br>
+        <small>Neručíme za psychické zdraví absolventů. Přežití kurzu nezaručuje získání řidičského oprávnění.</small>
+        <p style="margin-top: 20px;">© 2024 Autoškola Šajer. Všechna práva na nehody vyhrazena.</p>
+    </footer>
+
+    <div class="cookie-banner" id="cookieBanner">
+        <button class="btn-close-cookie" id="cookieClose">✕</button>
+        <h4 style="margin-bottom: 10px;">Soubory Cookies</h4>
+        <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 15px;">
+            Tento web používá cookies, aby zjistil, jestli máte strach. Souhlasíte s tím, že o vás víme všechno?
+        </p>
+        <div class="cookie-btns">
+            <button class="btn-cookie btn-accept" id="cookieAccept">Mám strach (Souhlasím)</button>
+            <button class="btn-cookie btn-deny" id="cookieDeny">Nemám pud sebezáchovy</button>
+        </div>
+    </div>
+
+    <script>
+        // ========== COOKIE BANNER LOGIC ========== 
+        const banner = document.getElementById('cookieBanner');
+        const denyBtn = document.getElementById('cookieDeny');
+        
+        document.getElementById('cookieAccept').addEventListener('click', () => {
+            banner.style.opacity = '0';
+            setTimeout(() => banner.style.display = 'none', 500);
+        });
+
+        document.getElementById('cookieClose').addEventListener('click', () => {
+            alert('To se vám zas tak nepodaří! 😈');
+        });
+
+        // Tlačítko, co uhýbá
+        denyBtn.addEventListener('mouseover', () => {
+            const x = (Math.random() - 0.5) * 200;
+            const y = (Math.random() - 0.5) * 200;
+            denyBtn.style.transform = `translate(${x}px, ${y}px)`;
+        });
+
+        // ========== COUNTER LOGIC ========== 
+        const counterEl = document.getElementById('counter-number');
+        setInterval(() => {
+            // Občas se číslo změní na 0
+            if (Math.random() > 0.7) {
+                counterEl.textContent = "0";
+                counterEl.style.color = "red";
+            } else {
+                counterEl.textContent = Math.floor(Math.random() * 3);
+                counterEl.style.color = "var(--accent-pink)";
+            }
+        }, 2000);
+
+        // ========== FORM LOGIC ==========
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const msg = document.getElementById('formMessage');
+            msg.style.display = 'block';
+            this.reset();
+            setTimeout(() => msg.style.display = 'none', 5000);
+        });
+    </script>
+</body>
+</html>
